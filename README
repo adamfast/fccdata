@@ -1,0 +1,12 @@
+This project is split from my QTHmap and spotting network filter projects to make
+publicly available models / load scripts for working with the data the FCC publishes
+(specifically on amateur radio operators, possibly other data sets as well eventually)
+
+It includes en, hd and am models (en = entity, hd = header, am = amateur) representing
+the three major datasets in the amateur service license download available from the
+Universal Licensing Service here:
+http://wireless.fcc.gov/uls/index.htm?job=transaction&page=weekly
+
+example_project is included as a reference if necessary, but you should only need to add
+`fccdata` to INSTALLED_APPS, syncdb, and then you're ready to store the data. load.py
+will open, parse and save into the DB the pipe-delimited .DAT files.
