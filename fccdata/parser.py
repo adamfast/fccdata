@@ -18,6 +18,7 @@ def cleanup(value):
     value = value.replace("\xF2", "o") # ò, 3052388
     value = value.replace("\xA0", " ") #  , 495563
     value = value.replace("\xF6", "ö") # ö, 614011
+    value = value.replace("\xD2", "Ò") # Ò, 2942093
 #    print value
     return value
 
@@ -342,11 +343,11 @@ class HD(object):
         self.satellite = data[27]
         self.developmental_sta_demonstration = data[28]
         self.interconnected_service = data[29]
-        self.certifier_first_name = data[30]
+        self.certifier_first_name = cleanup(data[30])
         self.certifier_mi = data[31]
-        self.certifier_last_name = data[32]
+        self.certifier_last_name = cleanup(data[32])
         self.certifier_suffix = data[33]
-        self.certifier_title = data[34]
+        self.certifier_title = cleanup(data[34])
         self.female = data[35]
         self.black_african_american = data[36]
         self.native_american = data[37]
@@ -370,7 +371,7 @@ class HD(object):
         self.band_manager_regulatory_status = data[46]
         self.broadcast_services_type_of_radio_service = data[47]
         self.alien_ruling = data[48]
-        self.licensee_name_change = data[49]
+        self.licensee_name_change = cleanup(data[49])
 
     def get_object(self):
         definition = """
@@ -433,52 +434,52 @@ class HD(object):
         except hd.DoesNotExist:
             obj = hd(record_type='HD', unique_system_identifier=en_obj)
         # now update the rest
-        uls_file_number = self.uls_file_number
-        ebf_number = self.ebf_number
-        call_sign = self.call_sign
-        license_status = self.license_status
-        radio_service_code = self.radio_service_code
-        grant_date = self.grant_date
-        expired_date = self.expired_date
-        cancellation_date = self.cancellation_date
-        eligibility_rule_number = self.eligibility_rule_number
-        alien = self.alien
-        alien_government = self.alien_government
-        alien_corporation = self.alien_corporation
-        alien_officer = self.alien_officer
-        alien_control = self.alien_control
-        revoked = self.revoked
-        convicted = self.convicted
-        adjudged = self.adjudged
-        reserved = self.reserved
-        common_carrier = self.common_carrier
-        non_common_carrier = self.non_common_carrier
-        private_comm = self.private_comm
-        fixed = self.fixed
-        mobile = self.mobile
-        radiolocation = self.radiolocation
-        satellite = self.satellite
-        developmental_sta_demonstration = self.developmental_sta_demonstration
-        interconnected_service = self.interconnected_service
-        certifier_first_name = self.certifier_first_name
-        certifier_mi = self.certifier_mi
-        certifier_last_name = self.certifier_last_name
-        certifier_suffix = self.certifier_suffix
-        certifier_title = self.certifier_title
-        female = self.female
-        black_african_american = self.black_african_american
-        native_american = self.native_american
-        hawaiian = self.hawaiian
-        asian = self.asian
-        white = self.white
-        hispanic = self.hispanic
-        effective_date = self.effective_date
-        last_action_date = self.last_action_date
-        auction_id = self.auction_id
-        broadcast_services_regulatory_status = self.broadcast_services_regulatory_status
-        band_manager_regulatory_status = self.band_manager_regulatory_status
-        broadcast_services_type_of_radio_service = self.broadcast_services_type_of_radio_service
-        alien_ruling = self.alien_ruling
-        licensee_name_change = self.licensee_name_change
+        obj.uls_file_number = self.uls_file_number
+        obj.ebf_number = self.ebf_number
+        obj.call_sign = self.call_sign
+        obj.license_status = self.license_status
+        obj.radio_service_code = self.radio_service_code
+        obj.grant_date = self.grant_date
+        obj.expired_date = self.expired_date
+        obj.cancellation_date = self.cancellation_date
+        obj.eligibility_rule_number = self.eligibility_rule_number
+        obj.alien = self.alien
+        obj.alien_government = self.alien_government
+        obj.alien_corporation = self.alien_corporation
+        obj.alien_officer = self.alien_officer
+        obj.alien_control = self.alien_control
+        obj.revoked = self.revoked
+        obj.convicted = self.convicted
+        obj.adjudged = self.adjudged
+        obj.reserved = self.reserved
+        obj.common_carrier = self.common_carrier
+        obj.non_common_carrier = self.non_common_carrier
+        obj.private_comm = self.private_comm
+        obj.fixed = self.fixed
+        obj.mobile = self.mobile
+        obj.radiolocation = self.radiolocation
+        obj.satellite = self.satellite
+        obj.developmental_sta_demonstration = self.developmental_sta_demonstration
+        obj.interconnected_service = self.interconnected_service
+        obj.certifier_first_name = self.certifier_first_name
+        obj.certifier_mi = self.certifier_mi
+        obj.certifier_last_name = self.certifier_last_name
+        obj.certifier_suffix = self.certifier_suffix
+        obj.certifier_title = self.certifier_title
+        obj.female = self.female
+        obj.black_african_american = self.black_african_american
+        obj.native_american = self.native_american
+        obj.hawaiian = self.hawaiian
+        obj.asian = self.asian
+        obj.white = self.white
+        obj.hispanic = self.hispanic
+        obj.effective_date = self.effective_date
+        obj.last_action_date = self.last_action_date
+        obj.auction_id = self.auction_id
+        obj.broadcast_services_regulatory_status = self.broadcast_services_regulatory_status
+        obj.band_manager_regulatory_status = self.band_manager_regulatory_status
+        obj.broadcast_services_type_of_radio_service = self.broadcast_services_type_of_radio_service
+        obj.alien_ruling = self.alien_ruling
+        obj.licensee_name_change = self.licensee_name_change
 
         return obj
