@@ -19,6 +19,8 @@ def cleanup(value):
     value = value.replace("\xA0", " ") #  , 495563
     value = value.replace("\xF6", "ö") # ö, 614011
     value = value.replace("\xD2", "Ò") # Ò, 2942093
+    value = value.replace("\xD8", "Ø") # Ø, 2767585
+    value = value.replace("\xDC", "Ü") # Ü, 1949538
 #    print value
     return value
 
