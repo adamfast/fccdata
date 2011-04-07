@@ -29,6 +29,9 @@ class en(models.Model):
     status_code = models.CharField(max_length=1, blank=True, null=True)
     status_date = models.DateField(blank=True, null=True)
 
+    def __unicode__(self):
+        return self.call_sign
+
     class Meta:
         db_table = 'fcc_en'
         verbose_name_plural = 'EN'
@@ -68,6 +71,9 @@ class am(models.Model):
             return 'Technician Plus'
         else:
             return self.operator_class
+
+    def __unicode__(self):
+        return self.call_sign
 
     class Meta:
         db_table = 'fcc_am'
@@ -124,6 +130,9 @@ class hd(models.Model):
     broadcast_services_type_of_radio_service = models.CharField(max_length=1, blank=True, null=True)
     alien_ruling = models.CharField(max_length=1, blank=True, null=True)
     licensee_name_change = models.CharField(max_length=1, blank=True, null=True)
+
+    def __unicode__(self):
+        return self.call_sign
 
     class Meta:
         db_table = 'fcc_hd'
