@@ -8,7 +8,7 @@ setup(
     description='Models and load scripts used to import FCC data (priarmily focused on amateur radio) into Django.',
     author='Adam Fast',
     author_email='adamfast@gmail.com',
-    url='',
+    url='https://github.com/adamfast/fccdata',
     packages=find_packages(),
     package_data={
     },
