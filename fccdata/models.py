@@ -1,4 +1,15 @@
+import datetime
 from django.db import models
+
+class HDManager(models.Manager):
+    def active(self, *args, **kwargs):
+        return self.exclude(expired_date__lt=datetime.datetime.now).exclude(license_status='C').filter(*args, **kwargs)
+
+    def non_expired(self):
+        return self.exclude(expired_date__lt=datetime.datetime.now)
+
+    def non_cancelled(self):
+        return self.exclude(license_status='C')
 
 class en(models.Model):
     record_type = models.CharField(max_length=2, blank=True, null=True)
@@ -130,6 +141,8 @@ class hd(models.Model):
     broadcast_services_type_of_radio_service = models.CharField(max_length=1, blank=True, null=True)
     alien_ruling = models.CharField(max_length=1, blank=True, null=True)
     licensee_name_change = models.CharField(max_length=1, blank=True, null=True)
+
+    objects = HDManager()
 
     def __unicode__(self):
         return self.call_sign
