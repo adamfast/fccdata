@@ -1,6 +1,23 @@
 import datetime
 from django.db import models
 
+OPERATOR_CLASS_CHOICES = (
+    ('T', 'Technician'),
+    ('E', 'Extra'),
+    ('A', 'Advanced'),
+    ('G', 'General'),
+    ('N', 'Novice'),
+    ('P', 'Technician Plus'),
+)
+
+LICENSE_STATUS_CHOICES = (
+    ('A', 'Active'),
+    ('C', 'Cancelled'),
+    ('E', 'Expired'),
+    ('T', 'Terminated'),
+)
+
+
 class HDManager(models.Manager):
     def active(self, *args, **kwargs):
         return self.exclude(expired_date__lt=datetime.datetime.now).exclude(license_status='C').filter(*args, **kwargs)
@@ -10,6 +27,7 @@ class HDManager(models.Manager):
 
     def non_cancelled(self):
         return self.exclude(license_status='C')
+
 
 class en(models.Model):
     record_type = models.CharField(max_length=2, blank=True, null=True)
@@ -47,13 +65,14 @@ class en(models.Model):
         db_table = 'fcc_en'
         verbose_name_plural = 'EN'
 
+
 class am(models.Model):
     record_type = models.CharField(max_length=2, blank=True, null=True)
     unique_system_identifier = models.OneToOneField(en, db_column='unique_system_identifier', blank=True, null=True, primary_key=True)
     uls_file_number = models.CharField(max_length=14, blank=True, null=True)
     ebf_number = models.CharField(max_length=30, blank=True, null=True)
     call_sign = models.CharField(max_length=10, blank=True, null=True)
-    operator_class = models.CharField(max_length=1, blank=True, null=True)
+    operator_class = models.CharField(max_length=1, blank=True, null=True, choices=OPERATOR_CLASS_CHOICES)
     group_code = models.CharField(max_length=1, blank=True, null=True)
     region_code = models.IntegerField(blank=True, null=True)
     trustee_call_sign = models.CharField(max_length=10, blank=True, null=True)
@@ -64,24 +83,11 @@ class am(models.Model):
     vanity_call_sign_change = models.CharField(max_length=1, blank=True, null=True)
     vanity_relationship = models.CharField(max_length=12, blank=True, null=True)
     previous_call_sign = models.CharField(max_length=10, blank=True, null=True)
-    previous_operator_class = models.CharField(max_length=1, blank=True, null=True)
+    previous_operator_class = models.CharField(max_length=1, blank=True, null=True, choices=OPERATOR_CLASS_CHOICES)
     trustee_name = models.CharField(max_length=50, blank=True, null=True)
 
     def operator_class_verbose(self):
-        if self.operator_class == 'T':
-            return 'Technician'
-        elif self.operator_class == 'E':
-            return 'Extra'
-        elif self.operator_class == 'A':
-            return 'Advanced'
-        elif self.operator_class == 'G':
-            return 'General'
-        elif self.operator_class == 'N':
-            return 'Novice'
-        elif self.operator_class == 'P':
-            return 'Technician Plus'
-        else:
-            return self.operator_class
+        return self.get_operator_class_display()
 
     def __unicode__(self):
         return self.call_sign
@@ -90,13 +96,14 @@ class am(models.Model):
         db_table = 'fcc_am'
         verbose_name_plural = 'AM'
 
+
 class hd(models.Model):
     record_type = models.CharField(max_length=2, blank=True, null=True)
     unique_system_identifier = models.OneToOneField(en, db_column='unique_system_identifier', blank=True, null=True, primary_key=True)
     uls_file_number = models.CharField(max_length=14, blank=True, null=True)
     ebf_number = models.CharField(max_length=30, blank=True, null=True)
     call_sign = models.CharField(max_length=10, blank=True, null=True)
-    license_status = models.CharField(max_length=1, blank=True, null=True)
+    license_status = models.CharField(max_length=1, blank=True, null=True, choices=LICENSE_STATUS_CHOICES)
     radio_service_code = models.CharField(max_length=2, blank=True, null=True)
     grant_date = models.DateField(blank=True, null=True)
     expired_date = models.DateField(blank=True, null=True)

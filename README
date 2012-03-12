@@ -8,5 +8,6 @@ Universal Licensing Service here:
 http://wireless.fcc.gov/uls/index.htm?job=transaction&page=weekly
 
 example_project is included as a reference if necessary, but you should only need to add
-`fccdata` to INSTALLED_APPS, syncdb, and then you're ready to store the data. load.py
-will open, parse and save into the DB the pipe-delimited .DAT files.
+`fccdata` to INSTALLED_APPS, syncdb (or migrate via South), and then you're ready to store the data.
+
+The import_hams management command will open, parse and save into the DB the pipe-delimited .DAT files you downloaded from the FCC and specified with the --path= command line argument.

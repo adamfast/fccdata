@@ -5,24 +5,25 @@
         EN, AM (HD?)
 """
 
+
 def cleanup(value):
     value = str(value)
-    value = value.replace("\xBD", " 1/2") # ½, 215830
-    value = value.replace("\xF1", "n") # ñ, 620769
-    value = value.replace("\xC9", "E") # É, 645181
-    value = value.replace("\xD1", "N") # Ñ, 931395
-    value = value.replace("\xE1", "a") # a, 1077346
-    value = value.replace("\xE6", "ae") # æ, 1579078
-    value = value.replace("\xF3", "o") # ó, 2388090
-    value = value.replace("\xE9", "e") # é, 2716958
-    value = value.replace("\xF2", "o") # ò, 3052388
-    value = value.replace("\xA0", " ") #  , 495563
-    value = value.replace("\xF6", "ö") # ö, 614011
-    value = value.replace("\xD2", "Ò") # Ò, 2942093
-    value = value.replace("\xD8", "Ø") # Ø, 2767585
-    value = value.replace("\xDC", "Ü") # Ü, 1949538
-#    print value
+    value = value.replace("\xBD", " 1/2")  # ½, 215830
+    value = value.replace("\xF1", "n")  # ñ, 620769
+    value = value.replace("\xC9", "E")  # É, 645181
+    value = value.replace("\xD1", "N")  # Ñ, 931395
+    value = value.replace("\xE1", "a")  # a, 1077346
+    value = value.replace("\xE6", "ae")  # æ, 1579078
+    value = value.replace("\xF3", "o")  # ó, 2388090
+    value = value.replace("\xE9", "e")  # é, 2716958
+    value = value.replace("\xF2", "o")  # ò, 3052388
+    value = value.replace("\xA0", " ")  #  , 495563
+    value = value.replace("\xF6", "ö")  # ö, 614011
+    value = value.replace("\xD2", "Ò")  # Ò, 2942093
+    value = value.replace("\xD8", "Ø")  # Ø, 2767585
+    value = value.replace("\xDC", "Ü")  # Ü, 1949538
     return value
+
 
 class AM(object):
     definition = """
@@ -119,6 +120,7 @@ class AM(object):
 
         return obj
 
+
 class EN(object):
     definition = """
         record_type               char(2)              not null,
@@ -146,8 +148,8 @@ class EN(object):
         frn                       char(10)             null,
         applicant_type_code       char(1)              null,
         applicant_type_other      char(40)             null,
-        status_code               char(1)		     null,
-        status_date		datetime	     null
+        status_code               char(1)            null,
+        status_date     datetime         null
     """
 
     def __init__(self, input):
@@ -249,6 +251,7 @@ class EN(object):
 
         return obj
 
+
 class HD(object):
     definition = """
         record_type               char(2)              not null,
@@ -271,7 +274,7 @@ class HD(object):
         revoked                   char(1)              null,
         convicted                 char(1)              null,
         adjudged                  char(1)              null,
-        involved_reserved      	char(1)              null,
+        involved_reserved       char(1)              null,
         common_carrier            char(1)              null,
         non_common_carrier        char(1)              null,
         private_comm              char(1)              null,
@@ -300,9 +303,9 @@ class HD(object):
         band_manager              char(1)              null,
         type_serv_broad_serv      char(1)              null,
         alien_ruling              char(1)              null,
-        licensee_name_change	char(1)		     null
+        licensee_name_change    char(1)          null
     """
-    
+
     def __init__(self, input):
         import datetime, time
         data = input.split('|')
